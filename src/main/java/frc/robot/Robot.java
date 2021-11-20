@@ -5,7 +5,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -49,6 +52,30 @@ public class Robot extends TimedRobot
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+
+        Joystick joystick = robotContainer.getJoystick();
+
+        PowerDistributionPanel pdp = robotContainer.getPDP();
+
+        // Shuffleboard setup
+        SmartDashboard.putNumber("Joystick X", joystick.getX());
+        SmartDashboard.putNumber("Joystick Y", joystick.getY());
+        SmartDashboard.putNumber("Dial", joystick.getZ());
+        SmartDashboard.putNumber("Bat. Temperature", pdp.getTemperature());
+        SmartDashboard.putNumber("Total Energy", pdp.getTotalEnergy());
+
+        if (joystick.getX() > 0.5)
+        System.out.println("Moving Right");
+
+        if (joystick.getX() < -0.5)
+            System.out.println("Moving Left");
+
+        if (joystick.getY() < -0.5)
+            System.out.println("Moving Up");
+
+        if (joystick.getY() > 0.5)
+            System.out.println("Moving Down");
+
     }
 
     /** This method is called once each time the robot enters Disabled mode. */

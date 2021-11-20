@@ -6,39 +6,44 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.Constants;
+import frc.robot.subsystems.print;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase
-{
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField", "FieldCanBeLocal"})
-    private final ExampleSubsystem subsystem;
+public class printOff extends CommandBase {
 
+
+    private final print subsystem;
     /**
      * Creates a new ExampleCommand.
      *
-     * @param subsystem The subsystem used by this command.
      */
-    public ExampleCommand(ExampleSubsystem subsystem)
-    {
-        this.subsystem = subsystem;
+    public printOff(print s) {
+        subsystem = s;
         addRequirements(subsystem);
+
+
     }
 
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+    }
 
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {}
+    public void execute() {
+        print.stopprint();
+    }
 
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+
+    }
 
 
     // Returns true when the command should end.
