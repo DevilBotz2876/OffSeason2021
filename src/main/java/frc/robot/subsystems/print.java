@@ -34,7 +34,4 @@ public class print extends SubsystemBase {
         System.out.println("Printing");
     }
 
-    public static void stopprint() {
-        Constants.printToggle = false;
-    }
 }

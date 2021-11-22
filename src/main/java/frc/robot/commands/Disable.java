@@ -5,23 +5,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.print;
 
 /** An example command that uses an example subsystem. */
-public class printOff extends CommandBase {
+public class Disable extends CommandBase {
 
 
-    private final print subsystem;
     /**
      * Creates a new ExampleCommand.
      *
      */
-    public printOff(print s) {
-        subsystem = s;
-        addRequirements(subsystem);
-
+    public Disable() {
 
     }
 
@@ -29,13 +25,24 @@ public class printOff extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        System.out.println("******** DISABLE TRIGGERED ********\n" +
+                "The Disable button has been triggered.\n" +
+                "The robot will now be disabled.\n" +
+                "Please re-enable the robot to continue.\n" +
+                "To re-enable the robot, press the disable\n" +
+                "button again\n" +
+                "******************************************");
+        Constants.Disabled = true;
+        SmartDashboard.putBoolean("Disabled", true);
+
+
     }
 
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        print.stopprint();
+
     }
 
 

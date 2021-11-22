@@ -5,19 +5,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.print;
 
 /** An example command that uses an example subsystem. */
-public class printOn extends CommandBase {
+public class EStop extends CommandBase {
 
 
     /**
      * Creates a new ExampleCommand.
      *
      */
-    public printOn() {
+    public EStop() {
 
     }
 
@@ -25,6 +25,15 @@ public class printOn extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("******** EMERGENCY E-STOP TRIGGERED ********\n" +
+                    "The emergency E-Stop has been triggered.\n" +
+                    "the roboRIO will need to be rebooted before\n" +
+                    "the robot can be enabled again.\n");
+        }
+        Constants.EStop = true;
+        SmartDashboard.putBoolean("E-Stop", true);
+
 
     }
 
@@ -39,7 +48,7 @@ public class printOn extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        print.printOut();
+
     }
 
 

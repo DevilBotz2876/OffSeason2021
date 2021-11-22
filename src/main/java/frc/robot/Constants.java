@@ -17,10 +17,13 @@ package frc.robot;
 public final class Constants {
     // Button IDs
     public static final int TRIGGER_BUTTON = 1;
+    public static final int ESTOP_BUTTON = 6;
 
     // USB IDs
     public static final int JOYSTICK = 0;
 
     // Data
-    public static boolean printToggle = false;
+    public static boolean EStop = false;
+
+    public static boolean Disabled = false;
 }

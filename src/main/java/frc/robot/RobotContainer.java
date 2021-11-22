@@ -7,13 +7,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.printOff;
+import frc.robot.commands.EStop;
 import frc.robot.commands.printOn;
 import frc.robot.subsystems.print;
 
@@ -28,18 +26,31 @@ import static frc.robot.Constants.JOYSTICK;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final Joystick joystick = new Joystick(JOYSTICK);
+
+    DriverStation ds = DriverStation.getInstance();
+
     PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
     print print = new print();
-
-
 
     /**
      * The container for the robot.  Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
+        // Print event and alliance
+        try {
+            System.out.println("Event: " + ds.getEventName()
+                    + "\nAlliance: " + ds.getAlliance()
+                    + "\n********************************************");
+        }
+        catch (Exception e) {
+            System.out.println("An error occurred when attempting to get Event or Alliance");
+        }
 
-        // Configure the button bindings
+        // Put initial booleans
+        SmartDashboard.putBoolean("E-Stop", Constants.Disabled);
+        SmartDashboard.putBoolean("Disabled", Constants.Disabled);
+
         configureButtonBindings();
     }
 
@@ -51,8 +62,9 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         new JoystickButton(joystick, Constants.TRIGGER_BUTTON)
-                .whenPressed(new printOn(print))
-                .whenReleased(new printOff(print));
+                .whenPressed(new printOn());
+        new JoystickButton(joystick, Constants.ESTOP_BUTTON)
+                .whenPressed(new EStop());
     }
 
     /**
