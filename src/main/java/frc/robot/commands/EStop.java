@@ -33,8 +33,6 @@ public class EStop extends CommandBase {
         }
         Constants.EStop = true;
         SmartDashboard.putBoolean("E-Stop", true);
-
-
     }
 
 
