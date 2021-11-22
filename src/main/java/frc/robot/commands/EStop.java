@@ -17,45 +17,35 @@ public class EStop extends CommandBase {
      * Creates a new ExampleCommand.
      *
      */
-    public EStop() {
-
-    }
+    public EStop() {}
 
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        SmartDashboard.putBoolean("E-Stop", true);
+        Constants.EStop = true;
         for (int i = 0; i < 5; i++) {
             System.out.println("******** EMERGENCY E-STOP TRIGGERED ********\n" +
                     "The emergency E-Stop has been triggered.\n" +
                     "the roboRIO will need to be rebooted before\n" +
                     "the robot can be enabled again.\n");
         }
-        Constants.EStop = true;
-        SmartDashboard.putBoolean("E-Stop", true);
-
-
     }
-
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
-
-    }
+    public void execute() {}
 
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-
-    }
+    public void end(boolean interrupted) {}
 
 
     // Returns true when the command should end.
     @Override
-    public boolean isFinished()
-    {
+    public boolean isFinished() {
         return false;
     }
 }
