@@ -56,7 +56,6 @@ public class Robot extends TimedRobot
             CommandScheduler.getInstance().run();
         }
 
-        // Create new instances
         Joystick joystick = robotContainer.getJoystick();
 
         PowerDistributionPanel pdp = robotContainer.getPDP();
