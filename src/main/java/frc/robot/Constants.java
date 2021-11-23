@@ -15,15 +15,18 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    // Button IDs
-    public static final int TRIGGER_BUTTON = 1;
-    public static final int ESTOP_BUTTON = 6;
+    // Button IDs (there are for Dillan's Joystick)
+    public static final int TRIGGER_BUTTON = 3;
+    public static final int ESTOP_BUTTON = 4;
+    public static final int ENABLE_BUTTON = 5;
+    public static final int DISABLE_BUTTON = 6;
 
     // USB IDs
     public static final int JOYSTICK = 0;
 
     // Data
     public static boolean EStop = false;
-
     public static boolean Disabled = false;
+    public static boolean Enabled = false;
+
 }
