@@ -1,4 +1,4 @@
-# Off Season 2021
+# OffSeason 2021
 #### BHS Devilbotz Team 2876
 
 ![Code Size](https://img.shields.io/github/languages/code-size/BHSDevilbotz/OffSeason2021?style=for-the-badge) ![Team](https://img.shields.io/badge/Team-2876-red?style=for-the-badge) ![Total Lines](https://img.shields.io/tokei/lines/github/BHSDevilbotz/OffSeason2021?style=for-the-badge) ![License](https://img.shields.io/badge/License-MIT%20%26%20FIRST%2FWPILib-green?style=for-the-badge) [![CodeQL](https://github.com/BHSRobotix/OffSeason2021/actions/workflows/codeql-analysis.yml/badge.svg?branch=master)](https://github.com/BHSRobotix/OffSeason2021/actions/workflows/codeql-analysis.yml)
@@ -6,7 +6,7 @@
 Repo containing BHS Devilbotz Team 2876 production and development code for usage in FIRST(c) Robotics Competition.
 
 ## What is FIRST?
-FIRST stands for For Inspiration and Recognition of Science and Technology. Founded by Dean Kamen in 1989, FIRST has, over the past 20+ years, generated interest in the science and technology fields in many students through its various programs, including FRC (FIRST Robotics Competition), FTC (FIRST Tech Challenge), and FLL (FIRST LEGO League). Read more about FIRST
+FIRST stands for *For Inspiration and Recognition of Science and Technology*. Founded by Dean Kamen in 1989, FIRST has, over the past 20+ years, generated interest in the science and technology fields in many students through its various programs, including FRC (FIRST Robotics Competition), FTC (FIRST Tech Challenge), and FLL (FIRST LEGO League). Read more about FIRST
 
 ## In the Community
 Team 2876 is active outside of FRC competitions as well. Since 2011, our team has been mentoring students in after school and summer programs in all four elementary schools in our town of Burlington, MA. As of 2016, we also started FLL (First LEGO League) teams in Burlington’s Marshall Simonds Middle School. We are also active participants in local events, such as Burlington Pride Day and the 4th of July Parade.

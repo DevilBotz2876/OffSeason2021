@@ -56,6 +56,8 @@ public class Robot extends TimedRobot
             CommandScheduler.getInstance().run();
         }
 
+
+
         Joystick joystick = robotContainer.getJoystick();
 
         PowerDistributionPanel pdp = robotContainer.getPDP();
@@ -67,19 +69,21 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Bat. Temperature", pdp.getTemperature());
         SmartDashboard.putNumber("Total Energy", pdp.getTotalEnergy());
 
-        if (joystick.getX() > 0.5)
-        System.out.println("Moving Right");
+        if (joystick.getX() > 0.25)
+            System.out.println("Moving Right");
 
-        if (joystick.getX() < -0.5)
+        if (joystick.getX() < -0.25)
             System.out.println("Moving Left");
 
-        if (joystick.getY() < -0.5)
+        if (joystick.getY() < -0.25)
             System.out.println("Moving Up");
 
-        if (joystick.getY() > 0.5)
+        if (joystick.getY() > 0.25)
             System.out.println("Moving Down");
 
     }
+
+
 
     /** This method is called once each time the robot enters Disabled mode. */
     @Override

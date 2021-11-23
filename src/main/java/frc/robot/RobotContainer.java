@@ -61,10 +61,13 @@ public class RobotContainer {
      * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+        //Disable
         new JoystickButton(joystick, Constants.TRIGGER_BUTTON)
                 .whenPressed(new printOn());
+        //EStop
         new JoystickButton(joystick, Constants.ESTOP_BUTTON)
                 .whenPressed(new EStop());
+        //Enable
     }
 
     /**
