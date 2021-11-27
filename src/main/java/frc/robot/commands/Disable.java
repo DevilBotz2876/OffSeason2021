@@ -15,7 +15,7 @@ public class Disable extends CommandBase {
      */
     @Override
     public void initialize() {
-
+        System.out.println("Disable");
     }
 
     /**
@@ -24,7 +24,6 @@ public class Disable extends CommandBase {
      */
     @Override
     public void execute() {
-
     }
 
     /**
@@ -44,7 +43,7 @@ public class Disable extends CommandBase {
     @Override
     public boolean isFinished() {
         //Make this return true when this Command no longer needs to run execute()
-        return false;
+        return true;
     }
 
     /**

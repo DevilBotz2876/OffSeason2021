@@ -27,6 +27,5 @@ public final class Constants {
     // Data
     public static boolean EStop = false;
     public static boolean Disabled = false;
-    public static boolean Enabled = false;
 
 }

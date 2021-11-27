@@ -15,7 +15,7 @@ public class EStop extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        //when EStop is not true, the command scheduler is run, i.e. when EStop is true, the robot must be restarted to enable it again
+        //when EStop is not true, the command scheduler is run, i.e. when EStop is true, the command scheduler is stopped and the robot must be restarted to be enabled again
         Constants.EStop = true;
         SmartDashboard.putBoolean("E-Stop", true);
 

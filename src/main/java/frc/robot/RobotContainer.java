@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Disable;
 import frc.robot.commands.EStop;
+import frc.robot.commands.Enable;
 import frc.robot.commands.printOn;
 import frc.robot.subsystems.print;
 
@@ -68,6 +70,11 @@ public class RobotContainer {
         new JoystickButton(joystick, Constants.ESTOP_BUTTON)
                 .whenPressed(new EStop());
         //Enable
+        new JoystickButton(joystick, Constants.ENABLE_BUTTON)
+                .whenPressed(new Enable());
+        //Disable
+        new JoystickButton(joystick, Constants.DISABLE_BUTTON)
+                .whenPressed(new Disable());
     }
 
     /**

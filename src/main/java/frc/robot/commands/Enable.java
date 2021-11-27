@@ -15,7 +15,7 @@ public class Enable extends CommandBase {
      */
     @Override
     public void initialize() {
-        System.out.println("**TEST**");
+        System.out.println("Enable");
     }
 
     /**
@@ -23,7 +23,9 @@ public class Enable extends CommandBase {
      * (That is, it is called repeatedly until {@link #isFinished()}) returns true.)
      */
     @Override
-    public void execute() {}
+    public void execute() {
+
+    }
 
     /**
      * <p>
@@ -42,7 +44,7 @@ public class Enable extends CommandBase {
     @Override
     public boolean isFinished() {
         //Make this return true when this Command no longer needs to run execute()
-        return false;
+        return true;
     }
 
     /**
