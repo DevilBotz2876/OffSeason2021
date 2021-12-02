@@ -18,15 +18,21 @@ public final class Constants {
     // Button IDs (there are for Dillan's Joystick)
     public static final int TRIGGER_BUTTON = 3;
     public static final int ESTOP_BUTTON = 4;
-    public static final int ENABLE_BUTTON = 5;
-    public static final int DISABLE_BUTTON = 6;
 
     // USB IDs
     public static final int JOYSTICK = 0;
 
     // Data
     public static boolean EStop = false;
-    public static boolean Disabled = false;
-    public static boolean Enabled = false;
+
+    public static final class AutoConstants {
+        public static final double kWheelDiameterInches = 6;
+        // Temp Practice Bot Change
+        // public static final double DISTANCE_TO_GOAL = RobotType.isPracticeBot ? 40 : 80;
+        // public static final double ROTATE_ANGLE = RobotType.isPracticeBot ? 114 : 94;
+
+        public static final double DISTANCE_TO_GOAL = 80;
+        public static final double ROTATE_ANGLE = 94;
+    }
 
 }

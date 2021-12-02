@@ -10,22 +10,6 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "3,5": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Number Bar",
-              "_source0": "network_table:///SmartDashboard/Bat. Temperature",
-              "_title": "Bat. Temperature",
-              "Range/Min": 10.0,
-              "Range/Max": 90.0,
-              "Range/Center": 0.0,
-              "Visuals/Num tick marks": 3,
-              "Visuals/Show text": true
-            }
-          },
           "0,0": {
             "size": [
               1,
@@ -72,7 +56,7 @@
               "Visuals/Show value": true
             }
           },
-          "0,4": {
+          "0,2": {
             "size": [
               3,
               2
@@ -84,7 +68,7 @@
               "Visuals/Show voltage and current values": true
             }
           },
-          "3,4": {
+          "3,2": {
             "size": [
               1,
               1
@@ -93,6 +77,63 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Total Energy",
               "_title": "Total Energy"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/E-Stop",
+              "_title": "E-Stop",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Bat. Temperature",
+              "_title": "Bat. Temperature"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Joystick Z",
+              "_title": "Joystick Z"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Distance",
+              "_title": "Distance"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Gyro",
+              "_title": "Gyro"
             }
           }
         }
@@ -124,6 +165,45 @@
                   "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
                   "_title": "PowerDistributionPanel[0]",
                   "Visuals/Show voltage and current values": true
+                },
+                {
+                  "_type": "Gyro",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor",
+                  "_title": "navX-Sensor",
+                  "Visuals/Major tick spacing": 45.0,
+                  "Visuals/Starting angle": 180.0,
+                  "Visuals/Show tick mark ring": true,
+                  "Visuals/Counter clockwise": false
+                },
+                {
+                  "_type": "Differential Drivebase",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DifferentialDrive[1]",
+                  "_title": "DifferentialDrive[1]",
+                  "Wheels/Number of wheels": 4,
+                  "Wheels/Wheel diameter": 80.0,
+                  "Visuals/Show velocity vectors": true
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[2]",
+                  "_title": "PIDController[2]"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [3]",
+                  "_title": "Talon SRX [3]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [1]",
+                  "_title": "Talon SRX [1]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
+                  "_title": "PIDController[1]"
                 }
               ]
             }
@@ -140,15 +220,28 @@
               "Layout/Label position": "BOTTOM",
               "_children": []
             }
+          },
+          "4,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/DriveTrain",
+              "_title": "DriveTrain",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": 0.0,
-    "y": 0.0,
-    "width": 1920.0,
-    "height": 1032.0
+    "x": -8.0,
+    "y": -8.0,
+    "width": 1616.0,
+    "height": 876.0
   }
 }
