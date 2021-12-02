@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EStop;
-import frc.robot.commands.printOn;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.print;
 
@@ -66,14 +65,9 @@ public class RobotContainer {
                 () -> -joystick.getX(GenericHID.Hand.kRight)
         ));
 
-
-        //Disable
-        new JoystickButton(joystick, Constants.TRIGGER_BUTTON)
-                .whenPressed(new printOn());
         //EStop
         new JoystickButton(joystick, Constants.ESTOP_BUTTON)
                 .whenPressed(new EStop());
-        //Enable
     }
 
     /**
