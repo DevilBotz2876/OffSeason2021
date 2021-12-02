@@ -8,6 +8,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -21,6 +22,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot
 {
+
+
+
     private Command autonomousCommand;
 
     private RobotContainer robotContainer;
@@ -65,22 +69,9 @@ public class Robot extends TimedRobot
         // Shuffleboard setup
         SmartDashboard.putNumber("Joystick X", joystick.getX());
         SmartDashboard.putNumber("Joystick Y", joystick.getY());
-        SmartDashboard.putNumber("Dial", joystick.getZ());
+        SmartDashboard.putNumber("Joystick Z", joystick.getZ());
         SmartDashboard.putNumber("Bat. Temperature", pdp.getTemperature());
         SmartDashboard.putNumber("Total Energy", pdp.getTotalEnergy());
-
-        if (joystick.getX() > 0.25)
-            System.out.println("Moving Right");
-
-        if (joystick.getX() < -0.25)
-            System.out.println("Moving Left");
-
-        if (joystick.getY() < -0.25)
-            System.out.println("Moving Up");
-
-        if (joystick.getY() > 0.25)
-            System.out.println("Moving Down");
-
     }
 
 

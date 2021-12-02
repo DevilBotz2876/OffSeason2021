@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EStop;
 import frc.robot.commands.printOn;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.print;
 
 import static frc.robot.Constants.JOYSTICK;
@@ -28,10 +30,9 @@ public class RobotContainer {
     private final Joystick joystick = new Joystick(JOYSTICK);
 
     DriverStation ds = DriverStation.getInstance();
+    private final DriveTrain drive = new DriveTrain();
 
     PowerDistributionPanel pdp = new PowerDistributionPanel(0);
-
-    print print = new print();
 
     /**
      * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -48,8 +49,7 @@ public class RobotContainer {
         }
 
         // Put initial booleans
-        SmartDashboard.putBoolean("E-Stop", Constants.Disabled);
-        SmartDashboard.putBoolean("Disabled", Constants.Disabled);
+        SmartDashboard.putBoolean("E-Stop", Constants.EStop);
 
         configureButtonBindings();
     }
@@ -61,6 +61,12 @@ public class RobotContainer {
      * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+        drive.setDefaultCommand(new DriveCommand(drive,
+                () -> -joystick.getY(GenericHID.Hand.kLeft),
+                () -> -joystick.getX(GenericHID.Hand.kRight)
+        ));
+
+
         //Disable
         new JoystickButton(joystick, Constants.TRIGGER_BUTTON)
                 .whenPressed(new printOn());
