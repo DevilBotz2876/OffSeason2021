@@ -27,7 +27,7 @@ public class DriveCommand extends CommandBase {
   /**
    * Creates a new DriveCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param drive Drive train supplied by method
    */
   public DriveCommand(DriveTrain drive, DoubleSupplier forward, DoubleSupplier rotation) {
     m_drive = drive;
@@ -36,8 +36,8 @@ public class DriveCommand extends CommandBase {
     addRequirements(drive);
 
     // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5 units per second
-    filterForward = new SlewRateLimiter(3);
-    filterRotation = new SlewRateLimiter(3);
+    filterForward = new SlewRateLimiter(2.25);
+    filterRotation = new SlewRateLimiter(5);
   }
 
   // Called when the command is initially scheduled.
@@ -53,14 +53,16 @@ public class DriveCommand extends CommandBase {
 
     // Added division to slow control speed
     // Slowing 10%
-    double f = filterForward.calculate(m_forward.getAsDouble() / 1.05);
+    double f = filterForward.calculate(m_forward.getAsDouble());
     // Slowing 20%
-    double r = filterRotation.calculate(m_rotation.getAsDouble() / 1.1);
-    
+    double r = filterRotation.calculate(m_rotation.getAsDouble() / 1.05);
+
     // y=a(x^3)+(1-a)x
     double a = .4;
-    f = (a * (f*f*f)) + ((1-a) * f); 
-    r = (a * (r*r*r)) + ((1-a) * r); 
+    // f = (a * (f*f*f)) + ((1-a) * f);
+    // Modified curve
+    f = (a * (f*f*f)) + ((0.9-a) * f);
+    r = (a * (r*r*r)) + ((0.9-a) * r);
 
     m_drive.arcadeDrive(f, -r);
   }
