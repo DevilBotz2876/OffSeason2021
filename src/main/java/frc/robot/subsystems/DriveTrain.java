@@ -153,7 +153,6 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Distance", getAverageEncoderDistance());
-    SmartDashboard.putNumber("Gyro", getAngle().getDegrees());
 
     // Update the pose
 
