@@ -65,8 +65,6 @@ public class RobotContainer {
                 () -> -joystick.getY(GenericHID.Hand.kLeft),
                 () -> -joystickTwo.getY(GenericHID.Hand.kRight)
         ));
-
-
         //EStop
         new JoystickButton(joystick, Constants.ESTOP_BUTTON)
                 .whenPressed(new EStop());
