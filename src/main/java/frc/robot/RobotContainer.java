@@ -16,6 +16,7 @@ import frc.robot.commands.EStop;
 import frc.robot.subsystems.DriveTrain;
 
 import static frc.robot.Constants.JOYSTICK;
+import static frc.robot.Constants.JOYSTICK_TWO;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -26,6 +27,7 @@ import static frc.robot.Constants.JOYSTICK;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final Joystick joystick = new Joystick(JOYSTICK);
+    private final Joystick joystickTwo = new Joystick(JOYSTICK_TWO);
 
     DriverStation ds = DriverStation.getInstance();
     private final DriveTrain drive = new DriveTrain();
@@ -61,17 +63,13 @@ public class RobotContainer {
     private void configureButtonBindings() {
         drive.setDefaultCommand(new DriveCommand(drive,
                 () -> -joystick.getY(GenericHID.Hand.kLeft),
-                () -> -joystick.getX(GenericHID.Hand.kRight)
+                () -> -joystickTwo.getY(GenericHID.Hand.kRight)
         ));
 
 
-        //Disable
-        new JoystickButton(joystick, Constants.TRIGGER_BUTTON)
-                .whenPressed(new printOn());
         //EStop
         new JoystickButton(joystick, Constants.ESTOP_BUTTON)
                 .whenPressed(new EStop());
-        //Enable
     }
 
     /**

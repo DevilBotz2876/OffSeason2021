@@ -19,8 +19,8 @@ import java.util.function.DoubleSupplier;
 public class DriveCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveTrain m_drive;
-  private final DoubleSupplier m_forward;
-  private final DoubleSupplier m_rotation;
+  private final DoubleSupplier m_left;
+  private final DoubleSupplier m_right;
   private final SlewRateLimiter filterForward;
   private final SlewRateLimiter filterRotation;
 
@@ -29,10 +29,10 @@ public class DriveCommand extends CommandBase {
    *
    * @param drive Drive train supplied by method
    */
-  public DriveCommand(DriveTrain drive, DoubleSupplier forward, DoubleSupplier rotation) {
+  public DriveCommand(DriveTrain drive, DoubleSupplier left, DoubleSupplier right) {
     m_drive = drive;
-    m_forward = forward;
-    m_rotation = rotation;
+    m_left = left;
+    m_right = right;
     addRequirements(drive);
 
     // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5 units per second
@@ -53,18 +53,18 @@ public class DriveCommand extends CommandBase {
 
     // Added division to slow control speed
     // Slowing 10%
-    double f = filterForward.calculate(m_forward.getAsDouble());
+    double r = filterForward.calculate(m_right.getAsDouble());
     // Slowing 20%
-    double r = filterRotation.calculate(m_rotation.getAsDouble() / 1.05);
+    double l = filterRotation.calculate(m_left.getAsDouble());
 
     // y=a(x^3)+(1-a)x
     double a = .4;
     // f = (a * (f*f*f)) + ((1-a) * f);
     // Modified curve
-    f = (a * (f*f*f)) + ((0.9-a) * f);
-    r = (a * (r*r*r)) + ((0.9-a) * r);
+    // r = (a * (r*r*r)) + ((0.9-a) * r);
+    // l = (a * (l*l*l)) + ((0.9-a) * l);
 
-    m_drive.arcadeDrive(f, -r);
+    m_drive.tankDrive(r, l);
   }
 
   // Called once the command ends or is interrupted.
