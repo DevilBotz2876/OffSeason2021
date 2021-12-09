@@ -19,25 +19,25 @@ import java.util.function.DoubleSupplier;
 public class DriveCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveTrain m_drive;
-  private final DoubleSupplier m_left;
-  private final DoubleSupplier m_right;
+  private final DoubleSupplier m_forward;
+  private final DoubleSupplier m_rotation;
   private final SlewRateLimiter filterForward;
   private final SlewRateLimiter filterRotation;
 
   /**
    * Creates a new DriveCommand.
    *
-   * @param drive Drive train supplied by method
+   * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DriveTrain drive, DoubleSupplier left, DoubleSupplier right) {
+  public DriveCommand(DriveTrain drive, DoubleSupplier forward, DoubleSupplier rotation) {
     m_drive = drive;
-    m_left = left;
-    m_right = right;
+    m_forward = forward;
+    m_rotation = rotation;
     addRequirements(drive);
 
     // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5 units per second
-    filterForward = new SlewRateLimiter(2.25);
-    filterRotation = new SlewRateLimiter(5);
+    filterForward = new SlewRateLimiter(3);
+    filterRotation = new SlewRateLimiter(3);
   }
 
   // Called when the command is initially scheduled.
@@ -53,18 +53,16 @@ public class DriveCommand extends CommandBase {
 
     // Added division to slow control speed
     // Slowing 10%
-    double r = filterForward.calculate(m_right.getAsDouble());
+    double f = filterForward.calculate(m_forward.getAsDouble() / 1.05);
     // Slowing 20%
-    double l = filterRotation.calculate(m_left.getAsDouble());
-
+    double r = filterRotation.calculate(m_rotation.getAsDouble() / 1.1);
+    
     // y=a(x^3)+(1-a)x
     double a = .4;
-    // f = (a * (f*f*f)) + ((1-a) * f);
-    // Modified curve
-    // r = (a * (r*r*r)) + ((0.9-a) * r);
-    // l = (a * (l*l*l)) + ((0.9-a) * l);
+    f = (a * (f*f*f)) + ((1-a) * f); 
+    r = (a * (r*r*r)) + ((1-a) * r); 
 
-    m_drive.tankDrive(r, l);
+    m_drive.arcadeDrive(f, -r);
   }
 
   // Called once the command ends or is interrupted.

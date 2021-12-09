@@ -70,6 +70,8 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Joystick X", joystick.getX());
         SmartDashboard.putNumber("Joystick Y", joystick.getY());
         SmartDashboard.putNumber("Joystick Z", joystick.getZ());
+        SmartDashboard.putNumber("Bat. Temperature", pdp.getTemperature());
+        SmartDashboard.putNumber("Total Energy", pdp.getTotalEnergy());
     }
 
 
