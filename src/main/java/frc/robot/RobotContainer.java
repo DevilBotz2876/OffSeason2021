@@ -50,6 +50,7 @@ public class RobotContainer {
 
         // Put initial booleans
         SmartDashboard.putBoolean("E-Stop", Constants.EStop);
+        SmartDashboard.putBoolean("Forward Lock", false);
 
         configureButtonBindings();
     }
@@ -82,6 +83,10 @@ public class RobotContainer {
 
     public Joystick getJoystick() {
         return joystick;
+    }
+
+    public Joystick getJoystickTwo() {
+        return joystickTwo;
     }
 
     public PowerDistributionPanel getPDP() {

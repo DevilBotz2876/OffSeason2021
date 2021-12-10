@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.util.ShuffleboardManager;
 
 import java.util.function.DoubleSupplier;
 
@@ -21,8 +22,8 @@ public class DriveCommand extends CommandBase {
   private final DriveTrain m_drive;
   private final DoubleSupplier m_left;
   private final DoubleSupplier m_right;
-  private final SlewRateLimiter filterForward;
-  private final SlewRateLimiter filterRotation;
+  private final SlewRateLimiter filterLeft;
+  private final SlewRateLimiter filterRight;
 
   /**
    * Creates a new DriveCommand.
@@ -36,8 +37,8 @@ public class DriveCommand extends CommandBase {
     addRequirements(drive);
 
     // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5 units per second
-    filterForward = new SlewRateLimiter(2.25);
-    filterRotation = new SlewRateLimiter(5);
+    filterLeft = new SlewRateLimiter(5);
+    filterRight = new SlewRateLimiter(5);
   }
 
   // Called when the command is initially scheduled.
@@ -48,21 +49,23 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // double f = m_forward.getAsDouble();
-    // double r = m_rotation.getAsDouble();
+    double r;
+    double l;
 
-    // Added division to slow control speed
-    // Slowing 10%
-    double r = filterForward.calculate(m_right.getAsDouble());
-    // Slowing 20%
-    double l = filterRotation.calculate(m_left.getAsDouble());
+    if (ShuffleboardManager.getInstance().getSlewLimit()) {
+      r = filterRight.calculate(m_right.getAsDouble());
+      l = filterLeft.calculate(m_left.getAsDouble());
+    } else {
+      r = m_right.getAsDouble();
+      l = m_left.getAsDouble();
+    }
 
     // y=a(x^3)+(1-a)x
-    double a = .4;
+    double a = -0.1;
     // f = (a * (f*f*f)) + ((1-a) * f);
     // Modified curve
-    // r = (a * (r*r*r)) + ((0.9-a) * r);
-    // l = (a * (l*l*l)) + ((0.9-a) * l);
+    r = (a * (r * r * r)+ (0.9-a) * r) * 1.1;
+    l = (a * (l * l * l)+ (0.9-a) * l) * 1.1;
 
     m_drive.tankDrive(r, l);
   }

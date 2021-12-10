@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -22,10 +23,15 @@ import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.util.ShuffleboardManager;
+
+import java.util.function.BooleanSupplier;
 
 public class DriveTrain extends SubsystemBase {
   private final Field2d m_field = new Field2d();
@@ -41,6 +47,7 @@ public class DriveTrain extends SubsystemBase {
   private WPI_TalonSRX rightFollower = new WPI_TalonSRX(1);
   private WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
 
+
   private AHRS navx = new AHRS(SPI.Port.kMXP);
 
   DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
@@ -50,8 +57,6 @@ public class DriveTrain extends SubsystemBase {
   private final PIDController rightPIDController = new PIDController(1, 0, 0);
 
   private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(TRACK_WIDTH);
-
-
 
   public DriveTrain() {
 
@@ -103,8 +108,21 @@ public class DriveTrain extends SubsystemBase {
         * (Constants.AutoConstants.kWheelDiameterInches * Math.PI / 4096);
     return ((Math.abs(leftDistance) + Math.abs(rightDistance)) / 2);
   }
+  public NetworkTableEntry reversedControls;
+
 
   public void tankDrive(double leftValue, double rightValue) {
+    // Lock the values if they are close enough to each other
+    if (ShuffleboardManager.getInstance().getForwardSnapping()) {
+      if (Math.abs((leftValue - rightValue) / rightValue) < 0.15 || Math.abs((rightValue - leftValue) / leftValue) < 0.15) {
+        leftValue = (leftValue + rightValue) / 2;
+
+        SmartDashboard.putBoolean("Forward Lock", true);
+      } else {
+        SmartDashboard.putBoolean("Forward Lock", false);
+      }
+    }
+
     differentialDrive.tankDrive(leftValue, rightValue);
   }
 
