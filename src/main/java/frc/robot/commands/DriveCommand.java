@@ -25,21 +25,20 @@ public class DriveCommand extends CommandBase {
   private final SlewRateLimiter filterLeft;
   private final SlewRateLimiter filterRight;
 
-
   /**
    * Creates a new DriveCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param drive Drive train supplied by method
    */
-  public DriveCommand(DriveTrain drive, DoubleSupplier forward, DoubleSupplier rotation) {
+  public DriveCommand(DriveTrain drive, DoubleSupplier left, DoubleSupplier right) {
     m_drive = drive;
-    m_forward = forward;
-    m_rotation = rotation;
+    m_left = left;
+    m_right = right;
     addRequirements(drive);
 
     // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5 units per second
-    filterLeft = new SlewRateLimiter(3);
-    filterRight = new SlewRateLimiter(3);
+    filterLeft = new SlewRateLimiter(5);
+    filterRight = new SlewRateLimiter(5);
   }
 
   // Called when the command is initially scheduled.
@@ -68,8 +67,7 @@ public class DriveCommand extends CommandBase {
     r = (a * (r * r * r)+ (0.9-a) * r) * 1.1;
     l = (a * (l * l * l)+ (0.9-a) * l) * 1.1;
 
-
-    m_drive.arcadeDrive(f, -r);
+    m_drive.tankDrive(r, l);
   }
 
   // Called once the command ends or is interrupted.
