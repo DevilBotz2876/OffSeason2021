@@ -21,7 +21,6 @@ public final class Constants {
 
     // USB IDs
     public static final int JOYSTICK = 0;
-    public static final int JOYSTICK_TWO = 1;
 
     // Data
     public static boolean EStop = false;
