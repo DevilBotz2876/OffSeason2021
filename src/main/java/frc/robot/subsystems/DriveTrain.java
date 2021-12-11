@@ -110,12 +110,19 @@ public class DriveTrain extends SubsystemBase {
   }
   public NetworkTableEntry reversedControls;
 
+  double oldLeft = 0;
+  double oldRight = 0;
 
   public void tankDrive(double leftValue, double rightValue) {
     // Lock the values if they are close enough to each other
     if (ShuffleboardManager.getInstance().getForwardSnapping()) {
-      if (Math.abs((leftValue - rightValue) / rightValue) < 0.15 || Math.abs((rightValue - leftValue) / leftValue) < 0.15) {
-        leftValue = (leftValue + rightValue) / 2;
+      if ((Math.abs((leftValue - rightValue) / rightValue) < 0.25 || Math.abs((rightValue - leftValue) / leftValue) < 0.25 ) && ((leftValue > 0.05 || leftValue < -0.05) || (rightValue > 0.05 || rightValue < -0.05))) {
+        oldLeft = leftValue;
+        oldRight = rightValue;
+
+        leftValue = (oldLeft + oldRight) / 2;
+
+        rightValue = (oldLeft + oldRight) / 2;
 
         SmartDashboard.putBoolean("Forward Lock", true);
       } else {
