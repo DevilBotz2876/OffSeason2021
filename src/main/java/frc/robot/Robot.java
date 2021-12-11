@@ -63,15 +63,16 @@ public class Robot extends TimedRobot
 
 
         Joystick joystick = robotContainer.getJoystick();
+        Joystick joystickTwo = robotContainer.getJoystickTwo();
 
         PowerDistributionPanel pdp = robotContainer.getPDP();
         
         // Shuffleboard setup
-        SmartDashboard.putNumber("Joystick X", joystick.getX());
-        SmartDashboard.putNumber("Joystick Y", joystick.getY());
-        SmartDashboard.putNumber("Joystick Z", joystick.getZ());
-        SmartDashboard.putNumber("Bat. Temperature", pdp.getTemperature());
-        SmartDashboard.putNumber("Total Energy", pdp.getTotalEnergy());
+        SmartDashboard.putNumber("Joystick 1 X", joystick.getX());
+        SmartDashboard.putNumber("Joystick 1 Y", joystick.getY());
+
+        SmartDashboard.putNumber("Joystick 2 X", joystickTwo.getX());
+        SmartDashboard.putNumber("Joystick 2 Y", joystickTwo.getY());
     }
 
 

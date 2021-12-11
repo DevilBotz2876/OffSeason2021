@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EStop;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.print;
 
 import static frc.robot.Constants.JOYSTICK;
+import static frc.robot.Constants.JOYSTICK_TWO;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -27,6 +27,7 @@ import static frc.robot.Constants.JOYSTICK;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final Joystick joystick = new Joystick(JOYSTICK);
+    private final Joystick joystickTwo = new Joystick(JOYSTICK_TWO);
 
     DriverStation ds = DriverStation.getInstance();
     private final DriveTrain drive = new DriveTrain();
@@ -49,6 +50,7 @@ public class RobotContainer {
 
         // Put initial booleans
         SmartDashboard.putBoolean("E-Stop", Constants.EStop);
+        SmartDashboard.putBoolean("Forward Lock", false);
 
         configureButtonBindings();
     }
@@ -62,9 +64,8 @@ public class RobotContainer {
     private void configureButtonBindings() {
         drive.setDefaultCommand(new DriveCommand(drive,
                 () -> -joystick.getY(GenericHID.Hand.kLeft),
-                () -> -joystick.getX(GenericHID.Hand.kRight)
+                () -> -joystickTwo.getY(GenericHID.Hand.kRight)
         ));
-
         //EStop
         new JoystickButton(joystick, Constants.ESTOP_BUTTON)
                 .whenPressed(new EStop());
@@ -82,6 +83,10 @@ public class RobotContainer {
 
     public Joystick getJoystick() {
         return joystick;
+    }
+
+    public Joystick getJoystickTwo() {
+        return joystickTwo;
     }
 
     public PowerDistributionPanel getPDP() {
