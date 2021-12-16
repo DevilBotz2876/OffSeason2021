@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.DriveDistance;
+import frc.robot.commands.DriveRotate;
 import frc.robot.commands.EStop;
 import frc.robot.subsystems.DriveTrain;
 
@@ -69,6 +71,12 @@ public class RobotContainer {
         //EStop
         new JoystickButton(joystick, Constants.ESTOP_BUTTON)
                 .whenPressed(new EStop());
+
+       //  new JoystickButton(joystickTwo, 1)
+        //         .whenPressed(new DriveDistance(drive, 25, 0.5));
+
+        new JoystickButton(joystickTwo, 1)
+                .whenPressed(new DriveRotate(drive, 90, 0.5));
     }
 
     /**
