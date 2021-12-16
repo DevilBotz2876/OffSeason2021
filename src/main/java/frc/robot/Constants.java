@@ -15,8 +15,8 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    // Button IDs (there are for Dillan's Joystick)
-    public static final int TRIGGER_BUTTON = 3;
+    // Button IDs
+    public static final int AUTO_TEST = 2;
     public static final int ESTOP_BUTTON = 4;
 
     // USB IDs
@@ -27,7 +27,7 @@ public final class Constants {
     public static boolean EStop = false;
 
     public static final class AutoConstants {
-        public static final double kWheelDiameterInches = 6;
+        public static final double kWheelDiameterInches = 7.15;
         // Temp Practice Bot Change
         // public static final double DISTANCE_TO_GOAL = RobotType.isPracticeBot ? 40 : 80;
         // public static final double ROTATE_ANGLE = RobotType.isPracticeBot ? 114 : 94;

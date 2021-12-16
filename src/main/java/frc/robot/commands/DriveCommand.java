@@ -37,8 +37,8 @@ public class DriveCommand extends CommandBase {
     addRequirements(drive);
 
     // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5 units per second
-    filterLeft = new SlewRateLimiter(5);
-    filterRight = new SlewRateLimiter(5);
+    filterLeft = new SlewRateLimiter(3.75);
+    filterRight = new SlewRateLimiter(3.75);
   }
 
   // Called when the command is initially scheduled.
