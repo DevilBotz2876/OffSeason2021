@@ -25,10 +25,13 @@ public class ShuffleboardManager {
     private ShuffleboardTab shuffleTab;
 
     public ShuffleboardManager() {
-        /* This is how to declare HashMap */
+        /*
+        This is how to declare HashMap
+
         HashMap<Integer, String> hmap = new HashMap<Integer, String>();
         hmap.put(12, "Cool");
-        hmap.put(2, "Beans");
+        hmap.put(2, "" +
+                "Beans");
         hmap.put(7, "This");
         hmap.put(49, "is");
         hmap.put(3, "Amazing");
@@ -40,11 +43,11 @@ public class ShuffleboardManager {
             System.out.println(mentry.getValue());
         }
 
-        /* Get values based on key*/
+        Get values based on key
         String var= hmap.get(2);
         System.out.println("Value at index 2 is: "+var);
 
-        /* Remove values based on key*/
+        Remove values based on key
         hmap.remove(3);
         System.out.println("Map key and values3 after removal:");
         Set set2 = hmap.entrySet();
@@ -54,6 +57,7 @@ public class ShuffleboardManager {
             System.out.print("Key is: " + mentry2.getKey() + " & Value is: ");
             System.out.println(mentry2.getValue());
         }
+        */
 
 
 

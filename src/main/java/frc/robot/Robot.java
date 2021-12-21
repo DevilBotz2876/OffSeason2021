@@ -5,6 +5,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -12,6 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.sim.PhysicsSim;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,6 +31,8 @@ public class Robot extends TimedRobot
     private Command autonomousCommand;
 
     private RobotContainer robotContainer;
+    WPI_TalonSRX leftMaster = DriveTrain.getLeftMaster();
+    WPI_TalonSRX rightMaster = DriveTrain.getRightMaster();
 
     /**
      * This method is run when the robot is first started up and should be used for any
@@ -128,4 +133,15 @@ public class Robot extends TimedRobot
     /** This method is called periodically during test mode. */
     @Override
     public void testPeriodic() {}
+
+    @Override
+    public void simulationInit() {
+        PhysicsSim.getInstance().addTalonSRX(leftMaster, 0.75, 5100, false);
+        PhysicsSim.getInstance().addTalonSRX(rightMaster, 0.75, 5100, false);
+    }
+
+    @Override
+    public void simulationPeriodic() {
+        PhysicsSim.getInstance().run();
+    }
 }

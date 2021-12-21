@@ -13,28 +13,24 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.hal.SimDouble;
+import edu.wpi.first.hal.SimValue;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.simulation.SimDeviceSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.util.ShuffleboardManager;
 
-import java.util.function.BooleanSupplier;
-
 public class DriveTrain extends SubsystemBase {
-  private final Field2d m_field = new Field2d();
 
   /**
    * Creates a new DriveTrain.
@@ -42,21 +38,24 @@ public class DriveTrain extends SubsystemBase {
 
   private static final double TRACK_WIDTH = 0.595; // meters
 
-  private WPI_TalonSRX rightMaster = new WPI_TalonSRX(2);
-  private WPI_TalonSRX leftMaster = new WPI_TalonSRX(4);
-  private WPI_TalonSRX rightFollower = new WPI_TalonSRX(1);
-  private WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
+  private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(2);
+  private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(4);
+  private final WPI_TalonSRX rightFollower = new WPI_TalonSRX(1);
+  private final WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
 
 
-  private AHRS navx = new AHRS(SPI.Port.kMXP);
+  private final AHRS navx = new AHRS(SPI.Port.kMXP);
+  private SimDeviceSim navx_sim = new SimDeviceSim("navX-Sensor", 0);
+
+  private Pose2d m_pose;
+
+  DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+          navx.getRotation2d(), new Pose2d(5.0, 13.5, new Rotation2d()));
+
+  private final Field2d m_field = new Field2d();
 
   DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
-  // TODO what should these be? should they be different? find out next time on
-  private final PIDController leftPIDController = new PIDController(1, 0, 0);
-  private final PIDController rightPIDController = new PIDController(1, 0, 0);
-
-  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(TRACK_WIDTH);
 
   public DriveTrain() {
 
@@ -74,6 +73,8 @@ public class DriveTrain extends SubsystemBase {
     leftMaster.setSensorPhase(true);
     rightMaster.setSensorPhase(true);
 
+
+
     TalonSRXConfiguration allConfigs = new TalonSRXConfiguration();
 
     allConfigs.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
@@ -85,6 +86,8 @@ public class DriveTrain extends SubsystemBase {
     resetEncoders();
     setTalonMode(NeutralMode.Brake);
     // odometry = new DifferentialDriveOdometry(getAngle());
+
+
   }
 
   public void resetGyro() {
@@ -108,7 +111,6 @@ public class DriveTrain extends SubsystemBase {
         * (Constants.AutoConstants.kWheelDiameterInches * Math.PI / 4096);
     return ((Math.abs(leftDistance) + Math.abs(rightDistance)) / 2);
   }
-  public NetworkTableEntry reversedControls;
 
   double oldLeft = 0;
   double oldRight = 0;
@@ -151,35 +153,37 @@ public class DriveTrain extends SubsystemBase {
    */
   public Rotation2d getAngle() {
     // Negating the angle because WPILib gyros are CW positive.
-    return Rotation2d.fromDegrees(-navx.getAngle());
-  }
+    // if simulated, return simulated angle
+    if (Robot.isSimulation()) {
 
-  /**
-   * Sets the desired wheel speeds.
-   *
-   * @param speeds The desired wheel speeds.
-   */
-  public void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
+      SimDouble simAngle = navx_sim.getDouble("Yaw");
+      // return Rotation2d
+      return Rotation2d.fromDegrees(simAngle.get());
+    } else {
+      return Rotation2d.fromDegrees(-navx.getAngle());
+    }
 
-  }
-
-  /**
-   * Drives the robot with the given linear velocity and angular velocity.
-   *
-   * @param xSpeed Linear velocity in m/s.
-   * @param rot    Angular velocity in rad/s.
-   */
-  @SuppressWarnings("ParameterName")
-  public void drive(double xSpeed, double rot) {
-    var wheelSpeeds = kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed, 0.0, rot));
-    setSpeeds(wheelSpeeds);
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Distance", getAverageEncoderDistance());
+    // put speed on smartdashboard
+    SmartDashboard.putNumber("Speed", (Math.abs(leftMaster.getSelectedSensorVelocity()) + Math.abs(rightMaster.getSelectedSensorVelocity())) / 2);
+    // get yaw from navx_sim
 
-    // Update the pose
+    m_odometry.update(getAngle(),
+            leftMaster.getSelectedSensorPosition() * Math.PI / 4096,
+            rightMaster.getSelectedSensorPosition() * Math.PI / 4096);
+    m_field.setRobotPose(m_odometry.getPoseMeters());
 
+  }
+
+  public static WPI_TalonSRX getLeftMaster() {
+    return leftMaster;
+  }
+
+  public static WPI_TalonSRX getRightMaster() {
+    return rightMaster;
   }
 }
