@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DriveDistance;
-import frc.robot.commands.DriveRotate;
+import frc.robot.commands.autonomous.DriveRotate;
 import frc.robot.commands.EStop;
 import frc.robot.subsystems.DriveTrain;
 

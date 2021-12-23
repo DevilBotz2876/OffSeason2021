@@ -179,7 +179,8 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Distance", getAverageEncoderDistance());
 
-    // Update the pose
+    // Robot velocity
+    SmartDashboard.putNumber("Robot Speed", (leftMaster.getSelectedSensorVelocity() + rightMaster.getSelectedSensorVelocity()) / 2);
 
   }
 }
