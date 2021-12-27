@@ -61,7 +61,7 @@ public class DriveCommand extends CommandBase {
     }
 
     // y=a(x^3)+(1-a)x
-    double a = -0.1;
+    double a = 0.5;
     // f = (a * (f*f*f)) + ((1-a) * f);
     // Modified curve
     r = (a * (r * r * r)+ (0.9-a) * r) * 1.1;
