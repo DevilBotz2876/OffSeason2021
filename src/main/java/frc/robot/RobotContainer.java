@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.autonomous.DriveRotate;
 import frc.robot.commands.EStop;
+import frc.robot.commands.autonomous.DriveRotate;
 import frc.robot.subsystems.DriveTrain;
 
 import static frc.robot.Constants.JOYSTICK;
@@ -29,10 +29,8 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final Joystick joystick = new Joystick(JOYSTICK);
     private final Joystick joystickTwo = new Joystick(JOYSTICK_TWO);
-
-    DriverStation ds = DriverStation.getInstance();
     private final DriveTrain drive = new DriveTrain();
-
+    DriverStation ds = DriverStation.getInstance();
     PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
     /**
@@ -44,8 +42,7 @@ public class RobotContainer {
             System.out.println("Event: " + ds.getEventName()
                     + "\nAlliance: " + ds.getAlliance()
                     + "\n********************************************");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("An error occurred when attempting to get Event or Alliance");
         }
 
@@ -67,12 +64,10 @@ public class RobotContainer {
                 () -> -joystick.getY(GenericHID.Hand.kLeft),
                 () -> -joystickTwo.getY(GenericHID.Hand.kRight)
         ));
+
         //EStop
         new JoystickButton(joystick, Constants.ESTOP_BUTTON)
                 .whenPressed(new EStop());
-
-       //  new JoystickButton(joystickTwo, 1)
-        //         .whenPressed(new DriveDistance(drive, 25, 0.5));
 
         new JoystickButton(joystickTwo, 1)
                 .whenPressed(new DriveRotate(drive, 90, 0.5));

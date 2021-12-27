@@ -35,22 +35,37 @@ public class DriveCurve extends CommandBase {
         filter = new SlewRateLimiter(3);
     }
 
+    /*
+     * Runs when the command is initially scheduled.
+     */
     @Override
     public void initialize() {
         m_drive.resetEncoders();
     }
 
-    // Called every time the scheduler runs while the command is scheduled.
+    /**
+     * Called every time the scheduler runs while the command is scheduled.
+     */
     @Override
     public void execute() {
         m_drive.arcadeDrive(filter.calculate(m_speed), filter.calculate(m_rotation));
     }
 
+    /**
+     * Called once the command ends or is interrupted.
+     *
+     * @param interrupted If the command was interrupted.
+     */
     @Override
     public void end(boolean interrupted) {
         m_drive.arcadeDrive(0, 0);
     }
 
+    /**
+     * Returns true when the command should end.
+     *
+     * @return If the command should end.
+     */
     @Override
     public boolean isFinished() {
         return m_drive.getAverageEncoderDistance() >= m_distance;
