@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
 public class EStop extends CommandBase {
-    public EStop() {}
-
-    // Called when the command is initially scheduled.
+    /**
+     * Called when the command is first initialized.
+     */
     @Override
     public void initialize() {
         //when EStop is not true, the command scheduler is run, i.e. when EStop is true, the robot must be restarted to enable it again
@@ -29,15 +29,27 @@ public class EStop extends CommandBase {
     }
 
 
-    // Called every time the scheduler runs while the command is scheduled.
+    /**
+     * Called periodically during the command
+     */
     @Override
-    public void execute() {}
+    public void execute() {
+    }
 
-    // Called once the command ends or is interrupted.
+    /**
+     * Called once the command ends or is interrupted.
+     *
+     * @param interrupted whether the command was interrupted or not
+     */
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+    }
 
-    // Returns true when the command should end.
+    /**
+     * Returns true when the command should end.
+     *
+     * @return whether the command should end or not
+     */
     @Override
     public boolean isFinished() {
         return false;
