@@ -15,24 +15,36 @@ public class DriveTimed extends CommandBase {
         addRequirements(drive);
     }
 
-    // Called when the command is initially scheduled.
+    /**
+     * Called when the command is initially scheduled.
+     */
     @Override
     public void initialize() {
         startTime = System.currentTimeMillis();
     }
 
-    // Called every time the scheduler runs while the command is scheduled.
+    /**
+     * Called every time the scheduler runs while the command is scheduled.
+     */
     @Override
     public void execute() {
         m_drive.arcadeDrive(speed, 0);
     }
 
-    // Called once the command ends or is interrupted.
+    /**
+     * Called once the command ends or is interrupted.
+     *
+     * @param interrupted whether the command was interrupted by another one
+     */
     @Override
     public void end(boolean interrupted) {
     }
 
-
+    /**
+     * Returns true when the command should end.
+     *
+     * @return whether the command should end
+     */
     @Override
     public boolean isFinished() {
         return (System.currentTimeMillis() - startTime) / 1000.0 >= time;

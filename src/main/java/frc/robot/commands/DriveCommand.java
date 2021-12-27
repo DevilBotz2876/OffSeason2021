@@ -15,69 +15,85 @@ import frc.robot.util.ShuffleboardManager;
 import java.util.function.DoubleSupplier;
 
 /**
- * An example command that uses an example subsystem.
+ * Drive command subsystem
  */
 public class DriveCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final DriveTrain m_drive;
-  private final DoubleSupplier m_left;
-  private final DoubleSupplier m_right;
-  private final SlewRateLimiter filterLeft;
-  private final SlewRateLimiter filterRight;
+    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    private final DriveTrain m_drive;
+    private final DoubleSupplier m_left;
+    private final DoubleSupplier m_right;
+    private final SlewRateLimiter filterLeft;
+    private final SlewRateLimiter filterRight;
 
-  /**
-   * Creates a new DriveCommand.
-   *
-   * @param drive Drive train supplied by method
-   */
-  public DriveCommand(DriveTrain drive, DoubleSupplier left, DoubleSupplier right) {
-    m_drive = drive;
-    m_left = left;
-    m_right = right;
-    addRequirements(drive);
+    /**
+     * Creates a new DriveCommand.
+     *
+     * @param drive Drive train supplied by method
+     * @param left Left motor speed
+     * @param right Right motor speed
+     */
+    public DriveCommand(DriveTrain drive, DoubleSupplier left, DoubleSupplier right) {
+        m_drive = drive;
+        m_left = left;
+        m_right = right;
+        addRequirements(drive);
 
-    // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5 units per second
-    filterLeft = new SlewRateLimiter(3.75);
-    filterRight = new SlewRateLimiter(3.75);
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    double r;
-    double l;
-
-    if (ShuffleboardManager.getInstance().getSlewLimit()) {
-      r = filterRight.calculate(m_right.getAsDouble());
-      l = filterLeft.calculate(m_left.getAsDouble());
-    } else {
-      r = m_right.getAsDouble();
-      l = m_left.getAsDouble();
+        // Creates a SlewRateLimiter to limit the rate of change of the motors
+        filterLeft = new SlewRateLimiter(3.75);
+        filterRight = new SlewRateLimiter(3.75);
     }
 
-    // y=a(x^3)+(1-a)x
-    double a = 0.5;
-    // f = (a * (f*f*f)) + ((1-a) * f);
-    // Modified curve
-    r = (a * (r * r * r)+ (0.9-a) * r) * 1.1;
-    l = (a * (l * l * l)+ (0.9-a) * l) * 1.1;
+    /**
+     * Called when the command is initially scheduled.
+     */
+    @Override
+    public void initialize() {
+    }
 
-    m_drive.tankDrive(r, l);
-  }
+    /**
+     * Called every time the scheduler runs while the command is scheduled.
+     */
+    @Override
+    public void execute() {
+        double r;
+        double l;
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
+        if (ShuffleboardManager.getInstance().getSlewLimit()) {
+            r = filterRight.calculate(m_right.getAsDouble());
+            l = filterLeft.calculate(m_left.getAsDouble());
+        } else {
+            r = m_right.getAsDouble();
+            l = m_left.getAsDouble();
+        }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+
+        // (a*(x^3)+(b-a)*x)*1.1
+        double a = 0.5;
+        double b = 0.9;
+
+        // Modified curve
+        r = (a * (r * r * r) + (b - a) * r) * 1.1;
+        l = (a * (l * l * l) + (b - a) * l) * 1.1;
+
+        m_drive.tankDrive(r, l);
+    }
+
+    /**
+     * Called once the command ends or is interrupted.
+     *
+     * @param interrupted Whether the command was interrupted.
+     */
+    @Override
+    public void end(boolean interrupted) {
+    }
+
+    /**
+     * Returns true when the command should end.
+     *
+     * @return Whether the command should end.
+     */
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }
