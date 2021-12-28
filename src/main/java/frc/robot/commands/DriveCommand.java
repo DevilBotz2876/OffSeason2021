@@ -66,6 +66,7 @@ public class DriveCommand extends CommandBase {
             l = m_left.getAsDouble();
         }
 
+
         // (a*(x^3)+(b-a)*x)*1.1
         double a = 0.5;
         double b = 0.9;
