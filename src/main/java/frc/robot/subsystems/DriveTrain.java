@@ -35,7 +35,7 @@ public class DriveTrain extends SubsystemBase {
     private final WPI_TalonSRX rightFollower = new WPI_TalonSRX(1);
     private final WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
 
-    private final AHRS navx = new AHRS(SPI.Port.kMXP);
+    private static final AHRS navx = new AHRS(SPI.Port.kMXP);
     private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(TRACK_WIDTH);
     DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
     double oldLeft = 0;
@@ -137,5 +137,9 @@ public class DriveTrain extends SubsystemBase {
         // Robot velocity
         SmartDashboard.putNumber("Robot Speed", (leftMaster.getSelectedSensorVelocity() + rightMaster.getSelectedSensorVelocity()) / 2);
 
+    }
+
+    public static AHRS getNavx() {
+        return navx;
     }
 }
