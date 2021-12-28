@@ -8,12 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EStop;
-import frc.robot.commands.autonomous.DriveRotate;
+import frc.robot.commands.autonomous.autoCommands.AutoTest;
+import frc.robot.commands.autonomous.drive.DriveRotate;
 import frc.robot.subsystems.DriveTrain;
 
 import static frc.robot.Constants.JOYSTICK;
@@ -32,6 +34,7 @@ public class RobotContainer {
     private final DriveTrain drive = new DriveTrain();
     DriverStation ds = DriverStation.getInstance();
     PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+    private final SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
     /**
      * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -45,6 +48,12 @@ public class RobotContainer {
         } catch (Exception e) {
             System.out.println("An error occurred when attempting to get Event or Alliance");
         }
+
+        AutoTest autoTest = new AutoTest(drive);
+        autonomousChooser.addOption("Auto Test", autoTest);
+        // DriveDistance backupCommand = new DriveDistance(drive, Constants.AutoConstants.DISTANCE_TO_GOAL, -0.5);
+        // autonomousChooser.addOption("Back Up", backupCommand);
+        SmartDashboard.putData("Auto Chooser", autonomousChooser);
 
         // Put initial booleans
         SmartDashboard.putBoolean("E-Stop", Constants.EStop);
@@ -80,7 +89,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return null;
+        return autonomousChooser.getSelected();
     }
 
     public Joystick getJoystick() {

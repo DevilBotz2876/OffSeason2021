@@ -53,7 +53,6 @@ public class Robot extends TimedRobot {
             CommandScheduler.getInstance().run();
         }
 
-
         Joystick joystick = robotContainer.getJoystick();
         Joystick joystickTwo = robotContainer.getJoystickTwo();
 
@@ -86,7 +85,6 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         autonomousCommand = robotContainer.getAutonomousCommand();
 
-        // schedule the autonomous command (example)
         if (autonomousCommand != null) {
             autonomousCommand.schedule();
         }

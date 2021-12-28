@@ -40,9 +40,14 @@
               1
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Number Bar",
               "_source0": "network_table:///SmartDashboard/Joystick 1 X",
-              "_title": "Joystick 1 X"
+              "_title": "Joystick 1 X",
+              "Range/Min": -1.0,
+              "Range/Max": 1.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true
             }
           },
           "1,0": {
@@ -51,9 +56,14 @@
               1
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Number Bar",
               "_source0": "network_table:///SmartDashboard/Joystick 1 Y",
-              "_title": "Joystick 1 Y"
+              "_title": "Joystick 1 Y",
+              "Range/Min": -1.0,
+              "Range/Max": 1.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true
             }
           },
           "0,1": {
@@ -62,9 +72,14 @@
               1
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Number Bar",
               "_source0": "network_table:///SmartDashboard/Joystick 2 X",
-              "_title": "Joystick 2 X"
+              "_title": "Joystick 2 X",
+              "Range/Min": -1.0,
+              "Range/Max": 1.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true
             }
           },
           "1,1": {
@@ -73,9 +88,14 @@
               1
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Number Bar",
               "_source0": "network_table:///SmartDashboard/Joystick 2 Y",
-              "_title": "Joystick 2 Y"
+              "_title": "Joystick 2 Y",
+              "Range/Min": -1.0,
+              "Range/Max": 1.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true
             }
           },
           "3,3": {
@@ -128,6 +148,50 @@
                 }
               }
             }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Encoder",
+              "_title": "Left Encoder"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Speed",
+              "_title": "Speed"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Robot Speed",
+              "_title": "Robot Speed"
+            }
+          },
+          "6,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto Chooser",
+              "_title": "Auto Chooser"
+            }
           }
         }
       }
@@ -162,24 +226,24 @@
                 {
                   "_type": "Speed Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [3]",
-                  "_title": "/LiveWindow/Ungrouped/Talon SRX [3]",
+                  "_title": "Talon SRX [3]",
                   "Visuals/Orientation": "HORIZONTAL"
                 },
                 {
                   "_type": "Speed Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [1]",
-                  "_title": "/LiveWindow/Ungrouped/Talon SRX [1]",
+                  "_title": "Talon SRX [1]",
                   "Visuals/Orientation": "HORIZONTAL"
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
-                  "_title": "/LiveWindow/Ungrouped/PIDController[1]"
+                  "_title": "PIDController[1]"
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[2]",
-                  "_title": "/LiveWindow/Ungrouped/PIDController[2]"
+                  "_title": "PIDController[2]"
                 },
                 {
                   "_type": "Text View",
@@ -199,6 +263,14 @@
                   "Visuals/Starting angle": 180.0,
                   "Visuals/Show tick mark ring": true,
                   "Visuals/Counter clockwise": false
+                },
+                {
+                  "_type": "Differential Drivebase",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DifferentialDrive[1]",
+                  "_title": "DifferentialDrive[1]",
+                  "Wheels/Number of wheels": 4,
+                  "Wheels/Wheel diameter": 80.0,
+                  "Visuals/Show velocity vectors": true
                 }
               ]
             }
