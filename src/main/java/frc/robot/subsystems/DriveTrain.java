@@ -16,7 +16,6 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -28,18 +27,17 @@ public class DriveTrain extends SubsystemBase {
      * Creates a new DriveTrain.
      */
 
-    private static final double TRACK_WIDTH = 0.595; // meters
-
     private final WPI_TalonSRX rightMaster = new WPI_TalonSRX(2);
     private final WPI_TalonSRX leftMaster = new WPI_TalonSRX(4);
     private final WPI_TalonSRX rightFollower = new WPI_TalonSRX(1);
     private final WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
 
     private static final AHRS navx = new AHRS(SPI.Port.kMXP);
-    private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(TRACK_WIDTH);
     DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
     double oldLeft = 0;
     double oldRight = 0;
+
+    double kP = 1;
 
     public DriveTrain() {
 
@@ -106,7 +104,9 @@ public class DriveTrain extends SubsystemBase {
             }
         }
 
-        differentialDrive.tankDrive(leftValue, rightValue);
+        double error = -navx.getRate();
+
+        differentialDrive.tankDrive(leftValue + kP * error, rightValue - kP * error);
     }
 
     public void arcadeDrive(double speed, double rotation) {
@@ -134,8 +134,8 @@ public class DriveTrain extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Distance", getAverageEncoderDistance());
 
-        // Robot velocity
-        SmartDashboard.putNumber("Robot Speed", (leftMaster.getSelectedSensorVelocity() + rightMaster.getSelectedSensorVelocity()) / 2);
+        // Robot velocity from navx
+        SmartDashboard.putNumber("Robot Velocity", (leftMaster.getSelectedSensorVelocity() + rightMaster.getSelectedSensorVelocity()) / 2);
 
     }
 
