@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         autonomousCommand = robotContainer.getAutonomousCommand();
-
+        SmartDashboard.putBoolean("Autonomous", true);
         if (autonomousCommand != null) {
             autonomousCommand.schedule();
         }
@@ -104,6 +104,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+
     }
 
 
@@ -116,6 +117,7 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
+        SmartDashboard.putBoolean("Autonomous", false);
 
     }
 
