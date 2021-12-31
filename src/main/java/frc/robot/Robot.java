@@ -81,6 +81,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
+        SmartDashboard.putBoolean("Autonomous", false);
     }
 
     @Override
@@ -147,6 +148,7 @@ public class Robot extends TimedRobot {
     public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
+        SmartDashboard.putBoolean("Autonomous", false);
     }
 
     /**

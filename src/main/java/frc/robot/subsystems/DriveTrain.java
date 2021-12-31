@@ -135,7 +135,7 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("Distance", getAverageEncoderDistance());
 
         // Robot velocity from navx
-        SmartDashboard.putNumber("Robot Velocity", (leftMaster.getSelectedSensorVelocity() + rightMaster.getSelectedSensorVelocity()) / 2);
+        SmartDashboard.putNumber("Robot Velocity", navx.getVelocityZ() + navx.getVelocityX());
 
     }
 
