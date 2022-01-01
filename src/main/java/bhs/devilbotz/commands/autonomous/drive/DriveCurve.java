@@ -1,15 +1,19 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------*/
+/* Copyright (c) 2021-2022 BHS Devilbotz. All Rights Reserved.                   */
+/* Open Source Software - may be modified, commercialized, distributed,          */
+/* sub-licensed and used for private use under the terms of the License.md       */
+/* file in the root of the source code tree.                                     */
+/*                                                                               */
+/* When doing any of the above, you MUST include the original                    */
+/* copyright and license files in any and all revised/modified code.             */
+/* You may NOT remove this header under any circumstance unless explicitly noted */
+/*-------------------------------------------------------------------------------*/
 
-package frc.robot.commands.autonomous.drive;
+package bhs.devilbotz.commands.autonomous.drive;
 
+import bhs.devilbotz.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
 
 public class DriveCurve extends CommandBase {
     private final DriveTrain m_drive;

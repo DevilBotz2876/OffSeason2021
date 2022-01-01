@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2021 BHS Devilbotz
+Copyright (c) 2021-2022 BHS Devilbotz
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

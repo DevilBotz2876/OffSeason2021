@@ -1,19 +1,24 @@
-// Copyright (c) FIRST and other WPILib contributors.
+/*-------------------------------------------------------------------------------*/
+/* Copyright (c) 2021-2022 BHS Devilbotz. All Rights Reserved.                   */
+/* Open Source Software - may be modified, commercialized, distributed,          */
+/* sub-licensed and used for private use under the terms of the License.md       */
+/* file in the root of the source code tree.                                     */
+/*                                                                               */
+/* When doing any of the above, you MUST include the original                    */
+/* copyright and license files in any and all revised/modified code.             */
+/* You may NOT remove this header under any circumstance unless explicitly noted */
+/*-------------------------------------------------------------------------------*/
 
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
-package frc.robot;
+package bhs.devilbotz;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.DriveTrain;
+import bhs.devilbotz.subsystems.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -58,9 +63,7 @@ public class Robot extends TimedRobot {
         // commands, running already-scheduled commands, removing finished or interrupted commands,
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
-        if (!Constants.EStop) {
-            CommandScheduler.getInstance().run();
-        }
+        CommandScheduler.getInstance().run();
 
         Joystick joystick = robotContainer.getJoystick();
         Joystick joystickTwo = robotContainer.getJoystickTwo();
