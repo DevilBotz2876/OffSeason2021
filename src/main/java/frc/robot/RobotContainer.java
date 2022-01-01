@@ -13,9 +13,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.EStop;
+import frc.robot.commands.autonomous.buttons.EStop;
+import frc.robot.commands.autonomous.buttons.SlewRateToggle;
+import frc.robot.commands.autonomous.buttons.SnappingToggle;
 import frc.robot.commands.autonomous.autoCommands.AutoTest;
-import frc.robot.commands.autonomous.drive.DriveRotate;
 import frc.robot.subsystems.DriveTrain;
 
 import static frc.robot.Constants.JOYSTICK;
@@ -42,7 +43,8 @@ public class RobotContainer {
     public RobotContainer() {
         // Print event and alliance
         try {
-            System.out.println("Event: " + ds.getEventName()
+            System.out.println("********************************************"
+                    + "\nEvent: " + ds.getEventName()
                     + "\nAlliance: " + ds.getAlliance()
                     + "\n********************************************");
         } catch (Exception e) {
@@ -70,16 +72,15 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         drive.setDefaultCommand(new DriveCommand(drive,
-                () -> -joystick.getY(GenericHID.Hand.kLeft),
-                () -> -joystickTwo.getY(GenericHID.Hand.kRight)
+                () -> -joystick.getY(Constants.JOYSTICK_ONE_HAND),
+                () -> -joystickTwo.getY(Constants.JOYSTICK_TWO_HAND)
         ));
 
-        //EStop
-        new JoystickButton(joystick, Constants.ESTOP_BUTTON)
-                .whenPressed(new EStop());
+        new JoystickButton(joystick, Constants.SLEW_TOGGLE)
+                .whenPressed(new SlewRateToggle());
 
-        new JoystickButton(joystickTwo, 1)
-                .whenPressed(new DriveRotate(drive, 90, 0.5));
+        new JoystickButton(joystick, Constants.SNAPPING_TOGGLE)
+                .whenPressed(new SnappingToggle());
     }
 
     /**

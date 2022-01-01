@@ -14,11 +14,9 @@ public class ShuffleboardManager {
                 .getEntry();
 
         forwardSnapping = Shuffleboard.getTab("Driver Assist")
-                .add("Forward Snapping", false)
+                .add("Forward Snapping", true)
                 .withWidget("Toggle Button")
                 .getEntry();
-
-        forwardSnapping.setBoolean(true);
 
     }
 
