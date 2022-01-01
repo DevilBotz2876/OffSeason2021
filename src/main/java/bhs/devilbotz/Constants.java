@@ -1,9 +1,15 @@
-// Copyright (c) FIRST and other WPILib contributors.
+/*-------------------------------------------------------------------------------*/
+/* Copyright (c) 2021-2022 BHS Devilbotz. All Rights Reserved.                   */
+/* Open Source Software - may be modified, commercialized, distributed,          */
+/* sub-licensed and used for private use under the terms of the License.md       */
+/* file in the root of the source code tree.                                     */
+/*                                                                               */
+/* When doing any of the above, you MUST include the original                    */
+/* copyright and license files in any and all revised/modified code.             */
+/* You may NOT remove this header under any circumstance unless explicitly noted */
+/*-------------------------------------------------------------------------------*/
 
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
-package frc.robot;
+package bhs.devilbotz;
 
 import edu.wpi.first.wpilibj.GenericHID;
 

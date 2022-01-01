@@ -1,26 +1,26 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------*/
+/* Copyright (c) 2021-2022 BHS Devilbotz. All Rights Reserved.                   */
+/* Open Source Software - may be modified, commercialized, distributed,          */
+/* sub-licensed and used for private use under the terms of the License.md       */
+/* file in the root of the source code tree.                                     */
+/*                                                                               */
+/* When doing any of the above, you MUST include the original                    */
+/* copyright and license files in any and all revised/modified code.             */
+/* You may NOT remove this header under any circumstance unless explicitly noted */
+/*-------------------------------------------------------------------------------*/
 
-package frc.robot;
+package bhs.devilbotz;
 
+import bhs.devilbotz.commands.DriveCommand;
+import bhs.devilbotz.commands.autonomous.buttons.SlewRateToggle;
+import bhs.devilbotz.commands.autonomous.buttons.SnappingToggle;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.autonomous.buttons.EStop;
-import frc.robot.commands.autonomous.buttons.SlewRateToggle;
-import frc.robot.commands.autonomous.buttons.SnappingToggle;
-import frc.robot.commands.autonomous.autoCommands.AutoTest;
-import frc.robot.subsystems.DriveTrain;
-
-import static frc.robot.Constants.JOYSTICK;
-import static frc.robot.Constants.JOYSTICK_TWO;
+import bhs.devilbotz.commands.autonomous.autoCommands.AutoTest;
+import bhs.devilbotz.subsystems.DriveTrain;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -30,8 +30,8 @@ import static frc.robot.Constants.JOYSTICK_TWO;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
-    private final Joystick joystick = new Joystick(JOYSTICK);
-    private final Joystick joystickTwo = new Joystick(JOYSTICK_TWO);
+    private final Joystick joystick = new Joystick(Constants.JOYSTICK);
+    private final Joystick joystickTwo = new Joystick(Constants.JOYSTICK_TWO);
     private final DriveTrain drive = new DriveTrain();
     DriverStation ds = DriverStation.getInstance();
     PowerDistributionPanel pdp = new PowerDistributionPanel(0);
