@@ -15,12 +15,14 @@ import bhs.devilbotz.util.ShuffleboardManager;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SnappingToggle extends CommandBase {
+    boolean initial;
     /**
      * Called when the command is first initialized.
      */
     @Override
     public void initialize() {
-        ShuffleboardManager.getInstance().setForwardSnapping(!ShuffleboardManager.getInstance().getForwardSnapping());
+        initial = ShuffleboardManager.getInstance().getForwardSnapping();
+        ShuffleboardManager.getInstance().setForwardSnapping(!initial);
 
         end(true);
     }
@@ -49,6 +51,6 @@ public class SnappingToggle extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return initial != ShuffleboardManager.getInstance().getForwardSnapping();
     }
 }

@@ -12,6 +12,7 @@
 package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
+import bhs.devilbotz.commands.autonomous.autoCommands.DistanceAccTest;
 import bhs.devilbotz.commands.autonomous.buttons.SlewRateToggle;
 import bhs.devilbotz.commands.autonomous.buttons.SnappingToggle;
 import edu.wpi.first.wpilibj.*;
@@ -53,6 +54,8 @@ public class RobotContainer {
 
         AutoTest autoTest = new AutoTest(drive);
         autonomousChooser.addOption("Auto Test", autoTest);
+        DistanceAccTest distanceAccTest = new DistanceAccTest(drive);
+        autonomousChooser.addOption("Distance Acc Test", distanceAccTest);
         // DriveDistance backupCommand = new DriveDistance(drive, Constants.AutoConstants.DISTANCE_TO_GOAL, -0.5);
         // autonomousChooser.addOption("Back Up", backupCommand);
         SmartDashboard.putData("Auto Chooser", autonomousChooser);

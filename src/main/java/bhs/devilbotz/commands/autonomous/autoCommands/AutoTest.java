@@ -13,7 +13,6 @@ package bhs.devilbotz.commands.autonomous.autoCommands;
 
 import bhs.devilbotz.commands.autonomous.drive.DriveRotate;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import bhs.devilbotz.commands.autonomous.drive.DriveCurve;
 import bhs.devilbotz.commands.autonomous.drive.DriveDistance;
 import bhs.devilbotz.commands.autonomous.drive.DriveTimed;
 import bhs.devilbotz.subsystems.DriveTrain;
@@ -21,9 +20,8 @@ import bhs.devilbotz.subsystems.DriveTrain;
 public class AutoTest extends SequentialCommandGroup {
     public AutoTest(DriveTrain drive) {
         addCommands(
-                new DriveDistance(drive, 40, 0.5),
-                new DriveRotate(drive, 90, 0.5),
-                new DriveTimed(drive, 5, 0.7),
-                new DriveCurve(drive, 40, 0.7, 90));
+                new DriveDistance(drive, 40, 0.6),
+                new DriveRotate(drive, -90, 0.5),
+                new DriveTimed(drive, 1, 0.7));
     }
 }

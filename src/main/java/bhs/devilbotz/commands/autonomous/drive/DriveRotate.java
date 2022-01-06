@@ -18,7 +18,6 @@ import bhs.devilbotz.subsystems.DriveTrain;
 public class DriveRotate extends CommandBase {
     private final DriveTrain m_drive;
     private final double degrees, rotationSpeed;
-    private final SlewRateLimiter filter;
     private double initialRotation;
 
     public DriveRotate(DriveTrain drive, double degrees, double rotationSpeed) {
@@ -26,8 +25,6 @@ public class DriveRotate extends CommandBase {
         this.rotationSpeed = rotationSpeed;
         m_drive = drive;
         addRequirements(drive);
-
-        filter = new SlewRateLimiter(3);
     }
 
     /**
@@ -44,7 +41,7 @@ public class DriveRotate extends CommandBase {
      */
     @Override
     public void execute() {
-        m_drive.arcadeDrive(0, -filter.calculate(rotationSpeed));
+        m_drive.tankDrive(rotationSpeed, -rotationSpeed);
     }
 
     /**
@@ -54,7 +51,7 @@ public class DriveRotate extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        m_drive.arcadeDrive(0, 0);
+        m_drive.tankDrive(0, 0);
     }
 
     /**
@@ -64,7 +61,13 @@ public class DriveRotate extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return m_drive.getAngle().getDegrees() >= initialRotation + degrees;
+        if (degrees < 0) {
+            return m_drive.getAngle().getDegrees() <= initialRotation + degrees;
+        } else {
+            return m_drive.getAngle().getDegrees() >= initialRotation + degrees;
+        }
+
+
         // return false;
     }
 }

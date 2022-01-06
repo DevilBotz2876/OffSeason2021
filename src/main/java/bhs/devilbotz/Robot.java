@@ -32,10 +32,6 @@ public class Robot extends TimedRobot {
     private RobotContainer robotContainer;
 
     private final AHRS navx = DriveTrain.getNavx();
-    double last_world_linear_accel_x;
-    double last_world_linear_accel_y;
-
-    final static double kCollisionThreshold_DeltaG = 0.5f;
 
 
     /**
@@ -130,21 +126,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        boolean collisionDetected = false;
-
-        double curr_world_linear_accel_x = navx.getWorldLinearAccelX();
-        double currentJerkX = curr_world_linear_accel_x - last_world_linear_accel_x;
-        last_world_linear_accel_x = curr_world_linear_accel_x;
-
-        double curr_world_linear_accel_y = navx.getWorldLinearAccelY();
-        double currentJerkY = curr_world_linear_accel_y - last_world_linear_accel_y;
-        last_world_linear_accel_y = curr_world_linear_accel_y;
-
-        if ((Math.abs(currentJerkX) > kCollisionThreshold_DeltaG) ||
-                (Math.abs(currentJerkY) > kCollisionThreshold_DeltaG)) {
-            collisionDetected = true;
-        }
-        SmartDashboard.putBoolean("Collision Detected", collisionDetected);
     }
 
     @Override

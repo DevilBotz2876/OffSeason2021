@@ -41,8 +41,6 @@ public class DriveTrain extends SubsystemBase {
     double oldLeft = 0;
     double oldRight = 0;
 
-    double kP = 1;
-
     public DriveTrain() {
 
         // https://phoenix-documentation.readthedocs.io/en/latest/ch13_MC.html#follower
@@ -108,9 +106,7 @@ public class DriveTrain extends SubsystemBase {
             }
         }
 
-        double error = -navx.getRate();
-
-        differentialDrive.tankDrive(leftValue + kP * error, rightValue - kP * error);
+        differentialDrive.tankDrive(leftValue, rightValue);
     }
 
     public void arcadeDrive(double speed, double rotation) {

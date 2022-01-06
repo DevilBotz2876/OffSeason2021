@@ -16,12 +16,14 @@ import bhs.devilbotz.util.ShuffleboardManager;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SlewRateToggle extends CommandBase {
+    boolean initial;
     /**
      * Called when the command is first initialized.
      */
     @Override
     public void initialize() {
-        ShuffleboardManager.getInstance().setSlewLimit(!ShuffleboardManager.getInstance().getSlewLimit());
+        initial = ShuffleboardManager.getInstance().getSlewLimit();
+        ShuffleboardManager.getInstance().setSlewLimit(!initial);
 
         end(true);
     }
@@ -50,6 +52,6 @@ public class SlewRateToggle extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return initial != ShuffleboardManager.getInstance().getSlewLimit();
     }
 }

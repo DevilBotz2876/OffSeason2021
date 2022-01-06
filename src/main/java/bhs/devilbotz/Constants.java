@@ -24,15 +24,15 @@ import edu.wpi.first.wpilibj.GenericHID;
  */
 public final class Constants {
     // Button IDs
-    public static final int SLEW_TOGGLE = 5;
-    public static final int SNAPPING_TOGGLE = 6;
+    public static final int SLEW_TOGGLE = 4;
+    public static final int SNAPPING_TOGGLE = 5;
 
     // USB IDs
-    public static final int JOYSTICK = 0;
+    public static final int JOYSTICK = 1;
     public static final GenericHID.Hand JOYSTICK_ONE_HAND = GenericHID.Hand.kRight;
 
-    public static final int JOYSTICK_TWO = 1;
-    public static final GenericHID.Hand JOYSTICK_TWO_HAND = GenericHID.Hand.kRight;
+    public static final int JOYSTICK_TWO = 0;
+    public static final GenericHID.Hand JOYSTICK_TWO_HAND = GenericHID.Hand.kLeft;
 
     // Data
     public static boolean EStop = false;

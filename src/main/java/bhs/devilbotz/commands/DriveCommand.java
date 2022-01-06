@@ -43,8 +43,8 @@ public class DriveCommand extends CommandBase {
         addRequirements(drive);
 
         // Creates a SlewRateLimiter to limit the rate of change of the motors
-        filterLeft = new SlewRateLimiter(3.75);
-        filterRight = new SlewRateLimiter(3.75);
+        filterLeft = new SlewRateLimiter(3);
+        filterRight = new SlewRateLimiter(3);
     }
 
     /**
